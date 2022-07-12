@@ -1,0 +1,12 @@
+{
+	"name": "nodejs-api-rest",
+	"version": "1.0.0",
+	"main": "index.js",
+	"repository": "git@github.com:soydavidpaucar/nodejs-api-rest.git",
+	"author": "David Paucar <soydavidpaucar@gmail.com>",
+	"license": "GLP-3.0",
+	"private": true,
+	"dependencies": {
+		"express": "^4.18.1"
+	}
+}
