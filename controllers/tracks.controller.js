@@ -1,10 +1,13 @@
+const { TrackModel } = require('../models');
+
 /**
  * Get all tracks
  * @param {*} request
  * @param {*} response
  */
-const getTracks = (request, response) => {
-	response.send('Hello Tracks');
+const getTracks = async (request, response) => {
+	const trackData = await TrackModel.find({});
+	response.send(trackData);
 };
 
 /**
@@ -19,7 +22,11 @@ const getTrackById = (request, response) => {};
  * @param {*} request
  * @param {*} response
  */
-const createTrack = (request, response) => {};
+const createTrack = async (request, response) => {
+	const { body } = request;
+	const trackData = await TrackModel.create(body);
+	response.send({ trackData });
+};
 
 /**
  * Update a track
