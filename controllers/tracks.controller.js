@@ -15,7 +15,11 @@ const getTracks = async (request, response) => {
  * @param {*} request
  * @param {*} response
  */
-const getTrackById = (request, response) => {};
+const getTrackById = async (request, response) => {
+	const { id } = request.params;
+	const trackData = await TrackModel.findById(id);
+	response.send({ trackData });
+};
 
 /**
  * Create a new track
