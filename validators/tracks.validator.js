@@ -13,7 +13,7 @@ const validatorCreateTrack = Joi.object().keys({
 		start: Joi.number().required(),
 		end: Joi.number().required()
 	},
-	mediaId: Joi.string().hex().length(24)
+	mediaId: Joi.string().hex().length(24).required()
 });
 
 module.exports = { validatorCreateTrack };
