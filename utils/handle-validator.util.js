@@ -1,5 +1,5 @@
-const validator = (schema) => (req, res, next) => {
-	const { error, value } = schema.validate(req.body, {
+const validator = (schema) => (request, response, next) => {
+	const { error, value } = schema.validate(request.body, {
 		abortEarly: false,
 		errors: {
 			wrap: {
@@ -8,7 +8,7 @@ const validator = (schema) => (req, res, next) => {
 		}
 	});
 	if (error) {
-		return res.status(400).json({ status: 400, message: error.details.map((e) => e.message), error: 'Bad Request' });
+		return response.status(400).json({ status: 400, message: error.details.map((e) => e.message), error: 'Bad Request' });
 	}
 	return next();
 };
