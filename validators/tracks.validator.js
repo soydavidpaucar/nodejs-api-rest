@@ -16,4 +16,8 @@ const validatorCreateTrack = Joi.object().keys({
 	mediaId: Joi.string().hex().length(24).required()
 });
 
-module.exports = { validatorCreateTrack };
+const validatorGetTrackById = Joi.object().keys({
+	id: Joi.string().hex().length(24).required()
+});
+
+module.exports = { validatorCreateTrack, validatorGetTrackById };
