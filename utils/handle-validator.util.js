@@ -13,11 +13,12 @@ const validator = (schema) => (request, response, next) => {
 		}
 	});
 
-	if (error) {
+	if (value) {
+		request.body = value;
+		return next();
+	} else {
 		return response.status(400).json({ status: 400, message: error.details.map((e) => e.message), error: 'Bad Request' });
 	}
-	request.body = value;
-	return next();
 };
 
 module.exports = validator;
