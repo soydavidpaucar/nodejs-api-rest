@@ -20,7 +20,7 @@ const getStorageById = async (request, response) => {
 	if (storageData) {
 		response.send({ storageData });
 	} else {
-		response.status(404).send({ status: 404, message: 'Track not found', error: 'Not Found' });
+		response.status(404).send({ status: 404, message: 'Storage not found', error: 'Not Found' });
 	}
 };
 
