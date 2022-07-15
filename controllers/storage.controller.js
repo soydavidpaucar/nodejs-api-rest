@@ -1,3 +1,4 @@
+const fs = require('fs');
 const { StorageModel } = require('../models');
 
 /**
@@ -56,6 +57,7 @@ const deleteStorage = async (request, response) => {
 	const { id } = request.params;
 	const storageData = await StorageModel.findByIdAndDelete({ _id: id });
 	if (storageData) {
+		fs.unlinkSync(`${__dirname}/../storage/${storageData.filename}`);
 		response.status(204).send({});
 	} else {
 		response.status(404).send({ status: 404, message: 'Storage not found', error: 'Not Found' });
