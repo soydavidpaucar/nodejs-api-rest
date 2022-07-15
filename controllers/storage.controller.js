@@ -18,7 +18,7 @@ const getStorageById = async (request, response) => {
 	const { id } = request.params;
 	const storageData = await StorageModel.findById(id);
 	if (storageData) {
-		response.send({ storageData });
+		response.send(storageData);
 	} else {
 		response.status(404).send({ status: 404, message: 'Storage not found', error: 'Not Found' });
 	}
