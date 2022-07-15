@@ -46,7 +46,25 @@ const createStorage = async (request, response) => {
  * @param {*} request
  * @param {*} response
  */
-const updateStorage = (request, response) => {};
+const updateStorage = async (request, response) => {
+	const { id } = request.params;
+	const { file } = request;
+
+	const fileData = {
+		filename: file.filename,
+		url: `${process.env.PUBLIC_URL}/${file.filename}`
+	};
+
+	const oldStorageData = await StorageModel.findById(id);
+	const storageData = await StorageModel.findByIdAndUpdate({ _id: id }, fileData, { new: true });
+
+	if (storageData) {
+		fs.unlinkSync(`${__dirname}/../storage/${oldStorageData.filename}`);
+		response.status(200).send(storageData);
+	} else {
+		response.status(404).send({ status: 404, message: 'Storage not found', error: 'Not Found' });
+	}
+};
 
 /**
  * Delete a storage
