@@ -14,7 +14,15 @@ const getStorages = async (request, response) => {
  * @param {*} request
  * @param {*} response
  */
-const getStorageById = (request, response) => {};
+const getStorageById = async (request, response) => {
+	const { id } = request.params;
+	const storageData = await StorageModel.findById(id);
+	if (storageData) {
+		response.send({ storageData });
+	} else {
+		response.status(404).send({ status: 404, message: 'Track not found', error: 'Not Found' });
+	}
+};
 
 /**
  * Create a new storage
