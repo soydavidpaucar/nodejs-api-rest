@@ -1,4 +1,5 @@
 const { StorageModel } = require('../models');
+
 /**
  * Get all storage
  * @param {*} request
@@ -51,7 +52,15 @@ const updateStorage = (request, response) => {};
  * @param {*} request
  * @param {*} response
  */
-const deleteStorage = (request, response) => {};
+const deleteStorage = async (request, response) => {
+	const { id } = request.params;
+	const storageData = await StorageModel.findByIdAndDelete({ _id: id });
+	if (storageData) {
+		response.status(204).send({});
+	} else {
+		response.status(404).send({ status: 404, message: 'Storage not found', error: 'Not Found' });
+	}
+};
 
 module.exports = {
 	getStorages,
