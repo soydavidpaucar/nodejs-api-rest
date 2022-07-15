@@ -18,7 +18,11 @@ const getTracks = async (request, response) => {
 const getTrackById = async (request, response) => {
 	const { id } = request.params;
 	const trackData = await TrackModel.findById(id);
-	response.send({ trackData });
+	if (trackData) {
+		response.send({ trackData });
+	} else {
+		response.status(404).send({ status: 404, message: 'Track not found', error: 'Not Found' });
+	}
 };
 
 /**
@@ -40,11 +44,10 @@ const createTrack = async (request, response) => {
 const updateTrack = async (request, response) => {
 	const { body } = request;
 	const { id } = request.params;
-	const trackDataById = await TrackModel.findById(id);
 
-	if (trackDataById) {
-		const trackData = await TrackModel.findByIdAndUpdate({ _id: id }, body, { new: true });
-		response.setHeader('Content-Type', 'application/json; charset=utf-8').send({ trackData });
+	const trackData = await TrackModel.findByIdAndUpdate({ _id: id }, body, { new: true });
+	if (trackData) {
+		response.send({ trackData });
 	} else {
 		response.status(404).send({ status: 404, message: 'Track not found', error: 'Not Found' });
 	}
@@ -55,7 +58,16 @@ const updateTrack = async (request, response) => {
  * @param {*} request
  * @param {*} response
  */
-const deleteTrack = (request, response) => {};
+const deleteTrack = async (request, response) => {
+	const { id } = request.params;
+
+	const trackData = await TrackModel.findByIdAndDelete({ _id: id });
+	if (trackData) {
+		response.status(204).send({ status: 204, message: 'Track deleted', error: 'No Content' });
+	} else {
+		response.status(404).send({ status: 404, message: 'Track not found', error: 'Not Found' });
+	}
+};
 
 module.exports = {
 	getTracks,
