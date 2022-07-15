@@ -37,7 +37,18 @@ const createTrack = async (request, response) => {
  * @param {*} request
  * @param {*} response
  */
-const updateTrack = (request, response) => {};
+const updateTrack = async (request, response) => {
+	const { body } = request;
+	const { id } = request.params;
+	const trackDataById = await TrackModel.findById(id);
+
+	if (trackDataById) {
+		const trackData = await TrackModel.findByIdAndUpdate({ _id: id }, body, { new: true });
+		response.setHeader('Content-Type', 'application/json; charset=utf-8').send({ trackData });
+	} else {
+		response.status(404).send({ status: 404, message: 'Track not found', error: 'Not Found' });
+	}
+};
 
 /**
  * Delete a track
