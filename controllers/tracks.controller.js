@@ -6,8 +6,9 @@ const { TrackModel } = require('../models');
  * @param {*} response
  */
 const getTracks = async (request, response) => {
+	const user = request.user;
 	const trackData = await TrackModel.find({});
-	response.send(trackData);
+	response.send({ trackData, user });
 };
 
 /**
