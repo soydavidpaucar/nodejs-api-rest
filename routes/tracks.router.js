@@ -6,9 +6,9 @@ const { validatorCreateTrack, validatorGetTrackById } = require('../validators/t
 const router = express.Router();
 
 router.get('/', sessionMiddleware, getTracks);
-router.get('/:id', validatorParamId(validatorGetTrackById), getTrackById);
-router.post('/', validator(validatorCreateTrack), createTrack);
-router.put('/:id', validator(validatorCreateTrack), validatorParamId(validatorGetTrackById), updateTrack);
-router.delete('/:id', validatorParamId(validatorGetTrackById), deleteTrack);
+router.get('/:id', sessionMiddleware, validatorParamId(validatorGetTrackById), getTrackById);
+router.post('/', sessionMiddleware, validator(validatorCreateTrack), createTrack);
+router.put('/:id', sessionMiddleware, validator(validatorCreateTrack), validatorParamId(validatorGetTrackById), updateTrack);
+router.delete('/:id', sessionMiddleware, validatorParamId(validatorGetTrackById), deleteTrack);
 
 module.exports = router;
